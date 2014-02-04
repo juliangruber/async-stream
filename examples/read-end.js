@@ -3,7 +3,7 @@ var wait = require('co-wait');
 
 co(function*(){
 
-  function genStream(){
+  function dates(){
     var i = 0;
     return function*(end){
       if (end || ++i == 3) return cleanup();
@@ -17,7 +17,7 @@ co(function*(){
   }
   
   var data;
-  var read = genStream();
+  var read = dates();
   
   console.log('data: %s', yield read());
   console.log('data: %s', yield read());

@@ -35,12 +35,14 @@ $ node --harmony examples/<name>.js
 stream semantics: There's only readable streams, no need for writable and
 transform.
 
+### read
+
   On each invokation the generator function should return a String or Buffer of
 data, or a falsy value when there's nothing more to be read and the stream is
 done:
 
 ```js
-function genStream(){
+function dates(){
   var i = 0;
   return function*(){
     if (++i == 3) return;
@@ -50,7 +52,7 @@ function genStream(){
 }
 
 var data;
-var read = genStream();
+var read = dates();
 
 while (data = yield read()) {
   console.log('data: %s', data);
@@ -61,7 +63,7 @@ console.log('done reading');
 
   Outputs:
 
-```
+```bash
 $ node --harmony examples/read.js
 data: 1391519193735
 data: 1391519194644
@@ -69,12 +71,14 @@ data: 1391519194663
 done reading
 ```
 
+## end
+
   The generator function may take an end argument, which when true tells the
 stream to clean up its underlying resources, like tcp connections or file
 descriptors.
 
 ```js
-function genStream(){
+function dates(){
   var i = 0;
   return function*(end){
     if (end || ++i == 3) return cleanup();
@@ -88,7 +92,7 @@ function genStream(){
 }
 
 var data;
-var read = genStream();
+var read = dates();
 
 console.log('data: %s', yield read());
 console.log('data: %s', yield read());
@@ -98,11 +102,53 @@ console.log('done reading');
 
   Outputs:
 
-```
+```bash
 $ node --harmony examples/read-end.js
 data: 1391519193735
 data: 1391519194644
 cleaning up
+done reading
+```
+
+## pipe
+
+  "Pipe" streams into each other by letting them read from each other. Here we
+  add a hex stream that converts date strings from decimal to hexadecimal:
+
+```js
+function dates(){
+  var i = 0;
+  return function*(end){
+    if (end || ++i == 3) return;
+    yield wait(1000);
+    return Date.now()+'';
+  }
+}
+
+function hex(fn){
+  return function*(end){
+    var str = yield fn(end);
+    if (!str) return;
+    return parseInt(str, 10).toString(16);
+  }
+}
+
+var data;
+var read = hex(dates());
+
+while (data = yield read()) {
+  console.log('data: %s', data);
+}
+
+console.log('done reading');
+```
+
+  Outputs:
+
+```bash
+$ node --harmony examples/pipe.js
+data: 143fd169b4d
+data: 143fd169f50
 done reading
 ```
 
