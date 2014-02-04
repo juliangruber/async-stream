@@ -1,4 +1,3 @@
-
 # co-stream
 
   The [co](https://github.com/visionmedia/co) generator stream spec.
@@ -179,7 +178,7 @@ co(function*(){
 
   ...or apply more granualar control:
 
-```
+```js
 var data;
 var read = errors();
 
