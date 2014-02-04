@@ -1,0 +1,12 @@
+{
+  "name": "co-stream",
+  "private": true,
+  "version": "0.0.0",
+  "description": "The co generator stream spec",
+  "respository": "juliangruber/co-stream",
+  "license": "MIT",
+  "devDependencies": {
+    "co-wait": "0.0.0",
+    "co": "~3.0.2"
+  }
+}
