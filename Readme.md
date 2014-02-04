@@ -71,7 +71,7 @@ data: 1391519194663
 done reading
 ```
 
-## end
+### end
 
   The generator function may take an end argument, which when true tells the
 stream to clean up its underlying resources, like tcp connections or file
@@ -110,7 +110,7 @@ cleaning up
 done reading
 ```
 
-## pipe
+### pipe
 
   "Pipe" streams into each other by letting them read from each other. Here we
   add a hex stream that converts date strings from decimal to hexadecimal:
