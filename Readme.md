@@ -152,6 +152,54 @@ data: 143fd169f50
 done reading
 ```
 
+### errors
+
+  Just throw inside the generator function:
+
+```js
+function errors(){
+  var i = 0;
+  return function*(end){
+    throw new Error('not implemented');
+  }
+}
+```
+
+  For error handling simply let co catch all:
+  
+```js
+co(function*(){
+  var data;
+  var read = errors();
+  while (data = yield read()) console.log('...');
+})(function(err){
+  // here we get the error
+});
+```  
+
+  ...or apply more granualar control:
+
+```
+var data;
+var read = errors();
+
+while (true) {
+  try {
+    var data = yield read();
+  } catch (err) {
+    console.error('threw');
+    break;
+  }
+}
+```
+
+  Outputs:
+
+```bash
+$ node --harmony examples/error.js
+threw
+```
+
 ## Streams
 
   Available generator streams:
