@@ -2,8 +2,8 @@
 
   The [co](https://github.com/visionmedia/co) generator stream spec.
   
-  It's only a spec, for now we don't even need a module, like node's `stream` or
-  dominictarr's [pull-stream](https://github.com/dominictarr/pull-stream).
+  There's only a spec and compliant modules, one design goal is not to
+  need any modules to create a valid stream.
 
 ## Misc
 
