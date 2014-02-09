@@ -204,6 +204,7 @@ threw
   Available generator streams:
 
   - [co-sse](https://github.com/juliangruber/co-sse) - Server-Sent Events stream
+  - [co-map](https://github.com/juliangruber/co-map) - Map a stream over a function
 
 ## License
   
