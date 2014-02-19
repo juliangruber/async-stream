@@ -222,6 +222,10 @@ http.createServer(function(req, res){
   right? Unfortunately that's not the case. Node will read 16kb into an internal buffer first because you
   might want to later pipe that read stream into another stream and it can than immediately flush that out.
   
+  In that case the buffer will be filled up pretty quickly so that's not a _huge_ problem. But imagine your
+  source being slow, with low throughput. For example it could tail logs of an infrequently used system.
+  In this case, with many requests to this http handler, it will keep a great number of streams open.
+  
   Currently co-streams have no concept of high water mark / buffering.
 
 ## Associated libraries
