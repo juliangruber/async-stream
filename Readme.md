@@ -5,7 +5,7 @@
   There's only a spec and compliant modules, one design goal is not to
   need any modules to create a valid stream.
 
-## Misc
+## Examples
 
   Examples are wrapped inside:
 
@@ -198,6 +198,9 @@ while (true) {
 $ node --harmony examples/error.js
 threw
 ```
+
+  This means that a transform stream can decide itself if it wants to handle errors from it's source,
+  by wrapping calls to `read` in a `try/catch`, or propagate them to the parent.
 
 ## Associated libraries
 
