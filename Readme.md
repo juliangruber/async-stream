@@ -202,6 +202,28 @@ threw
   This means that a transform stream can decide itself if it wants to handle errors from it's source,
   by wrapping calls to `read` in a `try/catch`, or propagate them to the parent.
 
+## high water mark / buffering
+
+  Some streams - like node's or unix pipes - have the concept of high water marks / buffering, which means
+  that a fast readable will be asked for data even if a slow readable isn't done consuming yet. This has
+  the advantage of being potentially faster and evening out spikes in the streams' throughputs. However,
+  it leads to more memory usage (in node max. 16kb per stream), complicates implementations and can
+  be very unintuitive.
+  
+  An example where you wouldn't expect that behavior is this:
+
+```js
+http.createServer(function(req, res){
+  fs.createReadStream('/dev/random').pipe(res);
+});
+```
+
+  You'd think this would stop reading from the pseudo number generator `/dev/random` when the request ends,
+  right? Unfortunately that's not the case. Node will read 16kb into an internal buffer first because you
+  might want to later pipe that read stream into another stream and it can than immediately flush that out.
+  
+  Currently co-streams have no concept of high water mark / buffering.
+
 ## Associated libraries
 
   [Available generator streams](https://github.com/visionmedia/co/wiki#wiki-streams)
