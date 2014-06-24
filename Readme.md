@@ -2,8 +2,7 @@
 
   The [co](https://github.com/visionmedia/co) generator stream spec.
   
-  There's only a spec and compliant modules, one design goal is not to
-  need any modules to create a valid stream.
+  This is spec / manual and that's all you need for co streams, you don't need any modules to create a valid stream, not even for convenience.
 
 ## Examples
 
@@ -31,8 +30,8 @@ $ node --harmony examples/<name>.js
 ## Semantics
 
   A generator stream is simply a generator function. If you're familiar with other
-stream semantics: There's only readable streams, no need for writable and
-transform.
+stream semantics: There's only readable streams, no need for writables and
+transforms.
 
   - A readable is a function: `var read = readable()`.
   - A transform is a readable that takes a stream as argument: `var read = transform(readable())`.
@@ -47,10 +46,11 @@ data, or a falsy value when there's nothing more to be read and the stream is
 done:
 
 ```js
+// readable stream that emits 3x the current date with 1 second delay
 function dates(){
   var i = 0;
   return function*(){
-    if (++i == 3) return;
+    if (++i == 3) return; // end
     yield wait(1000);
     return Date.now()+'';
   }
@@ -78,11 +78,13 @@ done reading
 
 ### end
 
-  The generator function may take an end argument, which when true tells the
+  The generator function may take an end argument, which when truthy tells the
 stream to clean up its underlying resources, like tcp connections or file
 descriptors.
 
 ```js
+// readable with cleanup logic
+
 function dates(){
   var i = 0;
   return function*(end){
@@ -101,7 +103,7 @@ var read = dates();
 
 console.log('data: %s', yield read());
 console.log('data: %s', yield read());
-yield read(true);
+yield read(true); // end
 console.log('done reading');
 ```
 
@@ -130,6 +132,7 @@ function dates(){
   }
 }
 
+// fn is the stream this reads from
 function hex(fn){
   return function*(end){
     var str = yield fn(end);
@@ -170,7 +173,7 @@ function errors(){
 }
 ```
 
-  For error handling simply let co catch all:
+  Either let co catch all errors:
   
 ```js
 co(function*(){
