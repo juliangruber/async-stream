@@ -2,7 +2,7 @@
 
   The [co](https://github.com/visionmedia/co) generator stream spec.
   
-  This is spec / manual and that's all you need for co streams, you don't need any modules to create a valid stream, not even for convenience.
+  This is a spec / manual and that's all you need for co streams, you don't need any modules to create a valid stream, not even for convenience.
 
 ## Examples
 
