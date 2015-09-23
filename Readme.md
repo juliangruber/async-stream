@@ -215,7 +215,7 @@ threw
 ## high water mark / buffering
 
   Some streams - like node's or unix pipes - have the concept of high water marks / buffering, which means
-  that a fast readable will be asked for data even if a slow readable isn't done consuming yet. This has
+  that a fast readable will be asked for data even if a slow writable isn't done consuming yet. This has
   the advantage of being potentially faster and evening out spikes in the streams' throughputs. However,
   it leads to more memory usage (in node max. 16kb per stream), complicates implementations and can
   be very unintuitive.
