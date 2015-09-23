@@ -19,10 +19,10 @@ co(function*(){
 })();
 ```
 
-  You can run the examples with node `0.11.x`:
+  You can run the examples with node >= 0.12:
 
 ```bash
-$ node --harmony examples/<name>.js
+$ node examples/<name>.js
 ```
 
   Be sure to `npm install` first!
