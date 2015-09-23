@@ -69,7 +69,7 @@ console.log('done reading');
   Outputs:
 
 ```bash
-$ node --harmony examples/read.js
+$ node examples/read.js
 data: 1391519193735
 data: 1391519194644
 data: 1391519194663
@@ -110,7 +110,7 @@ console.log('done reading');
   Outputs:
 
 ```bash
-$ node --harmony examples/read-end.js
+$ node examples/read-end.js
 data: 1391519193735
 data: 1391519194644
 cleaning up
@@ -155,7 +155,7 @@ console.log('done reading');
   Outputs:
 
 ```bash
-$ node --harmony examples/pipe.js
+$ node examples/pipe.js
 data: 143fd169b4d
 data: 143fd169f50
 done reading
@@ -205,7 +205,7 @@ while (true) {
   Outputs:
 
 ```bash
-$ node --harmony examples/error.js
+$ node examples/error.js
 threw
 ```
 
