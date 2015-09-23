@@ -142,6 +142,7 @@ function hex(fn){
 }
 
 var data;
+// this is the pipe
 var read = hex(dates());
 
 while (data = yield read()) {
