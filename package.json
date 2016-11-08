@@ -7,6 +7,6 @@
   "license": "MIT",
   "devDependencies": {
     "co-wait": "0.0.0",
-    "co": "~3.0.2"
+    "co": "~4.6.0"
   }
 }
