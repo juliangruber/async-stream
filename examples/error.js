@@ -1,22 +1,21 @@
-var co = require('co');
-var wait = require('co-wait');
+(async () => {
 
-co(function*(){
-  function errors(){
-    return function*(end){
-      throw new Error('not implemented');
-    }
+  const sleep = dt => new Promise(resolve => setTimeout(resolve, dt))
+
+  const errors = () => async end => {
+    throw new Error('not implemented')
   }
-  
-  var data;
-  var read = errors();
-  
+
+  let data
+  const read = errors()
+
   while (true) {
     try {
-      var data = yield read();
+      data = await read()
     } catch (err) {
-      console.error('threw');
-      break;
+      console.error('threw')
+      break
     }
   }
-})();
+
+})()

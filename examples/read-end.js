@@ -1,27 +1,25 @@
-var co = require('co');
-var wait = require('co-wait');
+(async () => {
 
-co(function*(){
+  const sleep = dt => new Promise(resolve => setTimeout(resolve, dt))
 
-  function dates(){
-    var i = 0;
-    return function*(end){
-      if (end || ++i == 3) return cleanup();
-      yield wait(1000);
-      return Date.now()+'';
-    }
-  
-    function cleanup(){
-      console.log('cleaning up');
+  // readable stream with cleanup logic
+  const dates = () => {
+    let i = 0
+    const cleanup = () => console.log('cleaning up')
+
+    return async end => {
+      if (end || ++i == 3) return cleanup()
+      await sleep(1000)
+      return String(Date.now())
     }
   }
-  
-  var data;
-  var read = dates();
-  
-  console.log('data: %s', yield read());
-  console.log('data: %s', yield read());
-  yield read(true);
-  console.log('done reading');
 
-})();
+  let data
+  const read = dates()
+
+  console.log(`data: ${await read()}`)
+  console.log(`data: ${await read()}`)
+  await read(true)
+  console.log('done reading')
+
+})()

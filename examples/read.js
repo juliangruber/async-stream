@@ -1,24 +1,24 @@
-var co = require('co');
-var wait = require('co-wait');
+(async () => {
 
-co(function*(){
+  const sleep = dt => new Promise(resolve => setTimeout(resolve, dt))
 
-  function dates(){
-    var i = 0;
-    return function*(){
-      if (++i == 3) return;
-      yield wait(1000);
-      return Date.now()+'';
+  // readable stream that emits 3x the current date with 1 second delay
+  const dates = () => {
+    let i = 0
+    return async () => {
+      if (++i == 3) return // end
+      await sleep(1000)
+      return String(Date.now())
     }
   }
-  
-  var data;
-  var read = dates();
-  
-  while (data = yield read()) {
-    console.log('data: %s', data);
-  }
-  
-  console.log('done reading');
 
-})();
+  let data
+  const read = dates()
+
+  while (data = await read()) {
+    console.log('data: %s', data)
+  }
+
+  console.log('done reading')
+
+})()

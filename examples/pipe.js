@@ -1,32 +1,29 @@
-var co = require('co');
-var wait = require('co-wait');
+(async () => {
 
-co(function*(){
+  const sleep = dt => new Promise(resolve => setTimeout(resolve, dt))
 
-  function dates(){
-    var i = 0;
-    return function*(end){
-      if (end || ++i == 3) return;
-      yield wait(1000);
-      return Date.now()+'';
+  const dates = () => {
+    let i = 0
+    return async end => {
+      if (end || ++i == 3) return
+      await sleep(1000)
+      return String(Date.now())
     }
   }
-  
-  function hex(fn){
-    return function*(end){
-      var str = yield fn(end);
-      if (!str) return;
-      return parseInt(str, 10).toString(16);
-    }
-  }
-  
-  var data;
-  var read = hex(dates());
-  
-  while (data = yield read()) {
-    console.log('data: %s', data);
-  }
-  
-  console.log('done reading');
 
-})();
+  const hex = fn => async end => {
+    const str = await fn(end)
+    if (!str) return
+    return Number(str).toString(16)
+  }
+
+  let data
+  const read = hex(dates())
+
+  while (data = await read()) {
+    console.log(`data: ${data}`)
+  }
+
+  console.log('done reading')
+
+})()
