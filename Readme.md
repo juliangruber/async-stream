@@ -4,6 +4,48 @@
 
   This is a spec / manual and that's all you need for async streams, you don't need any modules to create a valid stream, not even for convenience.
 
+## Comparison to node core streams
+
+Reading
+
+```js
+// core
+a.on('data', console.log)
+
+// async stream
+let data
+while (data = await a()) console.log(data)
+```
+
+Piping
+
+```js
+// core
+source.pipe(transform).pipe(destionation)
+
+// async stream
+const read = destination(transform(source()))
+```
+
+Error handling
+
+```js
+// core
+source
+  .on('error', handle)
+  .pipe(transform)
+  .on('error', handle)
+  .pipe(destination)
+
+// async stream
+try {
+  let data
+  while (data = await read()) {}
+} catch (err) {
+  handle(err)
+}
+```
+
 ## Examples
 
   Examples are wrapped inside:
