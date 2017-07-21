@@ -46,6 +46,36 @@ try {
 }
 ```
 
+Implementing a source
+
+```js
+// core
+const { Readable } = require('stream')
+class readable extends Readable {
+  _read () {
+    this.push(String(Date.now()))
+  }
+}
+
+// async stream
+const readable = () => async () => String(Date.now())
+```
+
+Implementing a transform
+
+```js
+// core
+const { Transform } = require('stream')
+class transform extends Transform {
+  _transform (chunk, enc, done) {
+    done(null, Number(chunk).toString(16))
+  }
+}
+
+// async stream
+const transform = read => async () => Number(await read()).toString(16)
+```
+
 ## Examples
 
   Examples are wrapped inside:
