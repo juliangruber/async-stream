@@ -76,9 +76,21 @@ class transform extends Transform {
 const transform = read => async () => Number(await read()).toString(16)
 ```
 
+## Semantics
+
+  An async stream is simply a promise returning function. If you're familiar with other
+stream semantics: There's only readable streams, no need for writables and
+transforms.
+
+  - A readable is a function: `var read = readable()`.
+  - A transform is a readable that takes a stream as argument: `var read = transform(readable())`.
+  - A writable is a while loop: `var data; while (data = yield read()) {}`.
+
+It's all pulling and there's simply no need for base classes.
+
 ## Examples
 
-  Examples are wrapped inside:
+  All following examples are wrapped inside:
 
 ```js
 (async () => {
@@ -97,18 +109,6 @@ $ node examples/<name>.js
 ```
 
   Be sure to `npm install` first!
-
-## Semantics
-
-  An async stream is simply a promise returning function. If you're familiar with other
-stream semantics: There's only readable streams, no need for writables and
-transforms.
-
-  - A readable is a function: `var read = readable()`.
-  - A transform is a readable that takes a stream as argument: `var read = transform(readable())`.
-  - A writable is a while loop: `var data; while (data = yield read()) {}`.
-
-It's all pulling and there's simply no need for base classes.
 
 ### read
 
