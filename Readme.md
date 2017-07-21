@@ -4,6 +4,18 @@
 
   This is a spec / manual and that's all you need for async streams, you don't need any modules to create a valid stream, not even for convenience.
 
+## Semantics
+
+  An async stream is simply a promise returning function. If you're familiar with other
+stream semantics: There's only readable streams, no need for writables and
+transforms.
+
+  - A readable is a function: `var read = readable()`.
+  - A transform is a readable that takes a stream as argument: `var read = transform(readable())`.
+  - A writable is a while loop: `var data; while (data = yield read()) {}`.
+
+It's all pulling and there's simply no need for base classes.
+
 ## Comparison to node core streams
 
 Reading
@@ -75,18 +87,6 @@ class transform extends Transform {
 // async stream
 const transform = read => async () => Number(await read()).toString(16)
 ```
-
-## Semantics
-
-  An async stream is simply a promise returning function. If you're familiar with other
-stream semantics: There's only readable streams, no need for writables and
-transforms.
-
-  - A readable is a function: `var read = readable()`.
-  - A transform is a readable that takes a stream as argument: `var read = transform(readable())`.
-  - A writable is a while loop: `var data; while (data = yield read()) {}`.
-
-It's all pulling and there's simply no need for base classes.
 
 ## Examples
 
