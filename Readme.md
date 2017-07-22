@@ -36,7 +36,9 @@ while (data = await a()) console.log(data)
 source.pipe(transform).pipe(destionation)
 
 // async stream
-const read = destination(transform(source()))
+const read = transform(source())
+let data
+while (data = await read()) {}
 ```
 
 ### Error handling
