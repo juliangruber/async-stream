@@ -18,7 +18,7 @@ It's all pulling and there's simply no need for base classes.
 
 ## Comparison to node core streams
 
-Reading
+### Reading
 
 ```js
 // core
@@ -29,7 +29,7 @@ let data
 while (data = await a()) console.log(data)
 ```
 
-Piping
+### Piping
 
 ```js
 // core
@@ -39,7 +39,7 @@ source.pipe(transform).pipe(destionation)
 const read = destination(transform(source()))
 ```
 
-Error handling
+### Error handling
 
 ```js
 // core
@@ -58,7 +58,7 @@ try {
 }
 ```
 
-Implementing a source
+### Implementing a source
 
 ```js
 // core
@@ -73,7 +73,7 @@ class readable extends Readable {
 const readable = () => async () => String(Date.now())
 ```
 
-Implementing a transform
+### Implementing a transform
 
 ```js
 // core
