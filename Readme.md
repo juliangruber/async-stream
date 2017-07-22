@@ -91,6 +91,21 @@ class transform extends Transform {
 const transform = read => async () => Number(await read()).toString(16)
 ```
 
+### A note on iteration
+
+The cumbersome
+
+```js
+let data
+while (data = await read()) {}
+```
+
+will become more elegant once the [async iteration spec](https://github.com/tc39/proposal-async-iteration) lands in JavaScript engines:
+
+```js
+for await (const data of read()) {}
+```
+
 ## Examples
 
   All following examples are wrapped inside:
