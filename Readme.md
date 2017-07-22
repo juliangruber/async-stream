@@ -52,6 +52,7 @@ source
   .pipe(destination)
 
 // async stream
+const read = transform(source())
 try {
   let data
   while (data = await read()) {}
