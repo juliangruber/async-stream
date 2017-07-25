@@ -126,8 +126,6 @@ for await (const data of read()) {}
 $ node examples/<name>.js
 ```
 
-  Be sure to `npm install` first!
-
 ### read
 
   On each invocation the stream should return a String or Buffer of

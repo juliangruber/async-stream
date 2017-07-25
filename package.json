@@ -1,12 +1,8 @@
 {
-  "name": "co-stream",
+  "name": "async-stream",
   "private": true,
   "version": "0.0.0",
-  "description": "The co generator stream spec",
-  "respository": "juliangruber/co-stream",
-  "license": "MIT",
-  "devDependencies": {
-    "co-wait": "0.0.0",
-    "co": "~4.6.0"
-  }
+  "description": "The async stream spec",
+  "respository": "juliangruber/async-stream",
+  "license": "MIT"
 }
