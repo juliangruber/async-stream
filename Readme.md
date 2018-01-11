@@ -10,9 +10,9 @@
 stream semantics: There's only readable streams, no need for writables and
 transforms.
 
-  - A readable is a function: `var read = readable()`.
-  - A transform is a readable that takes a stream as argument: `var read = transform(readable())`.
-  - A writable is a while loop: `var data; while (data = yield read()) {}`.
+  - A readable is a function: `const read = readable()`.
+  - A transform is a readable that takes a stream as argument: `const read = transform(readable())`.
+  - A writable is a while loop: `let data; while (data = await read()) {}`.
 
 It's all pulling and there's simply no need for base classes.
 
