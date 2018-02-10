@@ -1,7 +1,7 @@
 {
   "name": "async-stream",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "The async stream spec",
   "respository": "juliangruber/async-stream",
   "license": "MIT"
